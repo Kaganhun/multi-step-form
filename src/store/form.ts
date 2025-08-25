@@ -23,6 +23,7 @@ export interface FormState {
   personal: PersonalInfo
   plan: Plan | null
   addons: Addon[]
+  view?: 'landing' | 'form'
 }
 
 export const PLAN_PRICES = {
@@ -47,6 +48,7 @@ export const useFormStore = defineStore('form', {
       { id: 'storage', selected: false },
       { id: 'profile', selected: false },
     ],
+    view: 'landing',
   }),
   getters: {
     currentStepIndex: (state) => steps.indexOf(state.step),
@@ -88,6 +90,7 @@ export const useFormStore = defineStore('form', {
       this.personal = { name: '', email: '', phone: '' }
       this.plan = null
       this.addons = this.addons.map((a) => ({ ...a, selected: false }))
+      this.view = 'form'
     },
   },
 })

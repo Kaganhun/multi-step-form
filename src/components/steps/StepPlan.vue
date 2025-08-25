@@ -30,18 +30,18 @@ function selectPlan(id: Plan['id']) {
       <p class="text-sm text-neutral-400">You have the option of monthly or yearly billing.</p>
     </header>
 
-    <div class="grid gap-4 md:grid-cols-3">
+    <div class="grid gap-3 sm:gap-4 md:grid-cols-3">
       <button
         v-for="p in plans"
         :key="p.id"
         type="button"
         v-tilt="{ max: 8, scale: 1.02 }"
-        class="flex items-center gap-4 rounded-lg border p-4 text-left transition-shadow hover:border-primary hover:shadow-card focus:outline-none focus:ring-2 focus:ring-primary/20 md:block"
+        class="flex items-center gap-3 sm:gap-4 rounded-lg border p-4 text-left transition-shadow hover:border-primary hover:shadow-card focus:outline-none focus:ring-2 focus:ring-primary/20 md:block"
         :class="form.plan?.id === p.id ? 'border-primary bg-primary/5' : 'border-neutral-200 bg-white'"
         @click="selectPlan(p.id)"
       >
         <!-- icon for Arcade, placeholder for others -->
-        <div class="h-12 w-12 shrink-0 rounded-md md:mb-8 bg-sky/40 overflow-hidden flex items-center justify-center">
+        <div class="h-10 w-10 sm:h-12 sm:w-12 shrink-0 rounded-md md:mb-8 bg-sky/40 overflow-hidden flex items-center justify-center">
           <img v-if="p.icon" :src="p.icon" alt="" class="h-10 w-10 object-contain" />
         </div>
         <div>

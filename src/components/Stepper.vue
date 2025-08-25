@@ -22,12 +22,12 @@ function goTo(step: Step, index: number) {
 
 <template>
   <!-- Mobile: top horizontal -->
-  <div class="md:hidden">
-    <div class="flex items-center justify-start gap-3 p-2 text-white">
+  <div class="lg:hidden">
+    <div class="flex items-center justify-start gap-2 sm:gap-3 p-2 text-white">
       <template v-for="(s, i) in steps" :key="s.key">
         <button
           type="button"
-          class="flex h-9 w-9 items-center justify-center rounded-full border text-sm transition-colors"
+          class="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full border text-xs sm:text-sm transition-colors"
           :class="i === activeIndex ? 'bg-white text-accent border-white shadow' : 'border-white text-white/90 hover:bg-white/80'"
           @click="goTo(s.key as Step, i)"
         >
@@ -38,7 +38,7 @@ function goTo(step: Step, index: number) {
   </div>
 
   <!-- Desktop: sidebar -->
-  <div class="hidden md:block">
+  <div class="hidden lg:block">
     <div class="sticky top-8 rounded-xl bg-transparent p-0 text-white">
       <nav class="flex flex-col gap-6">
         <template v-for="(s, i) in steps" :key="s.key">

@@ -21,27 +21,27 @@ watch(local, () => {
 </script>
 
 <template>
-  <div class="space-y-6">
+  <div class="space-y-5 sm:space-y-6">
     <header>
       <h1 class="text-3xl font-bold text-primary">Personal info</h1>
       <p class="mt-1 text-sm text-neutral-400">Please provide your name, email address, and phone number.</p>
     </header>
 
-    <div class="grid gap-5">
+    <div class="grid gap-4 sm:gap-5">
       <div>
         <label class="mb-2 block text-sm font-medium">Name</label>
         <input class="input" v-model="local.name" placeholder="e.g. Stephen King" />
-        <p v-if="errors.name" class="error-text">{{ errors.name }}</p>
+        <p class="error-text min-h-5 md:min-h-6" aria-live="polite">{{ errors.name }}</p>
       </div>
       <div>
         <label class="mb-2 block text-sm font-medium">Email Address</label>
         <input class="input" v-model="local.email" placeholder="e.g. stephen@king.com" />
-        <p v-if="errors.email" class="error-text">{{ errors.email }}</p>
+        <p class="error-text min-h-5 md:min-h-6" aria-live="polite">{{ errors.email }}</p>
       </div>
       <div>
         <label class="mb-2 block text-sm font-medium">Phone Number</label>
         <input class="input" v-model="local.phone" placeholder="e.g. +1 234 567 890" />
-        <p v-if="errors.phone" class="error-text">{{ errors.phone }}</p>
+        <p class="error-text min-h-5 md:min-h-6" aria-live="polite">{{ errors.phone }}</p>
       </div>
     </div>
   </div>

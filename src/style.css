@@ -9,6 +9,20 @@
 }
 
 @layer components {
+  @keyframes float {
+    0%, 100% { transform: translateY(0) }
+    50% { transform: translateY(-6px) }
+  }
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 10px 20px rgba(72,62,255,0.15) }
+    50% { box-shadow: 0 16px 30px rgba(72,62,255,0.25) }
+  }
+  .anim-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .anim-glow {
+    animation: glow 3s ease-in-out infinite;
+  }
   .btn {
     @apply inline-flex items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
   }
@@ -20,6 +34,20 @@
   }
   .btn-secondary {
     @apply btn text-neutral-600 hover:text-primary;
+  }
+  .btn-pixel {
+    @apply inline-flex items-center justify-center rounded-none border-2 border-black bg-[#E60012] px-4 py-3 font-['Press_Start_2P'] text-xs text-white shadow-[4px_4px_0_0_#000] active:translate-x-1 active:translate-y-1 active:shadow-[2px_2px_0_0_#000];
+  }
+  .scanlines {
+    position: relative;
+  }
+  .scanlines::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(180deg, rgba(0,0,0,0.08) 0px, rgba(0,0,0,0.08) 1px, transparent 2px, transparent 4px);
+    pointer-events: none;
+    mix-blend-mode: multiply;
   }
   .input {
     @apply w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm outline-none placeholder:text-neutral-400 hover:border-neutral-300 focus:border-primary focus:ring-2 focus:ring-primary/20 shadow-sm;
