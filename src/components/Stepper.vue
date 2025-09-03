@@ -4,14 +4,15 @@ import { useFormStore, type Step } from '../store/form'
 
 const form = useFormStore()
 const steps = [
-  { key: 'personal', label: 'Your Info' },
-  { key: 'plan', label: 'Select Plan' },
-  { key: 'addons', label: 'Add-ons' },
-  { key: 'summary', label: 'Summary' },
-  { key: 'thankyou', label: 'Done' },
+  { key: 'personal', label: 'YOUR INFO' },
+  { key: 'plan', label: 'SELECT PLAN' },
+  { key: 'addons', label: 'ADD-ONS' },
+  { key: 'summary', label: 'SUMMARY' },
+  { key: 'thankyou', label: 'DONE' },
 ] as const
 
 const activeIndex = computed(() => steps.findIndex((s) => s.key === form.step))
+const progress = computed(() => ((activeIndex.value + 1) / (steps.length - 1)) * 100)
 
 function goTo(step: Step, index: number) {
   if (index <= activeIndex.value) {
@@ -21,8 +22,13 @@ function goTo(step: Step, index: number) {
 </script>
 
 <template>
-  <!-- Mobile: top horizontal -->
+  <!-- Mobile: top horizontal with progress bar -->
   <div class="lg:hidden">
+    <div class="px-3 pt-3">
+      <div class="h-1.5 w-full rounded-full bg-white/30">
+        <div class="h-full rounded-full bg-white transition-all" :style="{ width: Math.min(100, Math.max(0, (activeIndex+1)/(steps.length-1)*100)) + '%' }"></div>
+      </div>
+    </div>
     <div class="flex items-center justify-start gap-2 sm:gap-3 p-2 text-white">
       <template v-for="(s, i) in steps" :key="s.key">
         <button
@@ -40,6 +46,9 @@ function goTo(step: Step, index: number) {
   <!-- Desktop: sidebar -->
   <div class="hidden lg:block">
     <div class="sticky top-8 rounded-xl bg-transparent p-0 text-white">
+      <div class="mb-6 h-1.5 w-full rounded-full bg-white/25">
+        <div class="h-full rounded-full bg-white transition-all" :style="{ width: Math.min(100, Math.max(0, (activeIndex+1)/(steps.length-1)*100)) + '%' }"></div>
+      </div>
       <nav class="flex flex-col gap-6">
         <template v-for="(s, i) in steps" :key="s.key">
           <div class="flex items-center gap-4">

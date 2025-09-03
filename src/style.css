@@ -4,7 +4,7 @@
 
 @layer base {
   html, body, #app {
-    @apply h-full bg-neutral-100 text-neutral-600 font-sans;
+    @apply h-full bg-neutral-100 text-neutral-600 font-sans dark:bg-neutral-900 dark:text-neutral-100;
   }
 }
 
@@ -33,7 +33,7 @@
     @apply btn rounded-xl bg-accent text-white hover:bg-accent/90 px-6 py-3 active:translate-y-px active:shadow-sm shadow-card;
   }
   .btn-secondary {
-    @apply btn text-neutral-600 hover:text-primary;
+    @apply btn text-neutral-600 hover:text-primary dark:text-neutral-300 dark:hover:text-white;
   }
   .btn-pixel {
     @apply inline-flex items-center justify-center rounded-none border-2 border-black bg-[#E60012] px-4 py-3 font-['Press_Start_2P'] text-xs text-white shadow-[4px_4px_0_0_#000] active:translate-x-1 active:translate-y-1 active:shadow-[2px_2px_0_0_#000];
@@ -50,9 +50,23 @@
     mix-blend-mode: multiply;
   }
   .input {
-    @apply w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm outline-none placeholder:text-neutral-400 hover:border-neutral-300 focus:border-primary focus:ring-2 focus:ring-primary/20 shadow-sm;
+    @apply w-full rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm outline-none placeholder:text-neutral-400 hover:border-neutral-300 focus:border-primary focus:ring-2 focus:ring-primary/20 shadow-sm dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-400;
   }
   .error-text {
     @apply mt-1 text-xs text-red-600;
   }
+
+  /* Step transition */
+  .step-fade-enter-active, .step-fade-leave-active { transition: opacity .18s ease, transform .18s ease; }
+  .step-fade-enter-from { opacity: 0; transform: translateY(6px); }
+  .step-fade-leave-to { opacity: 0; transform: translateY(-6px); }
+
+  /* Directional slide based on forward/backward */
+  .slide-fwd-enter-active, .slide-fwd-leave-active { transition: transform .24s ease, opacity .24s ease; }
+  .slide-fwd-enter-from { transform: translateX(12px); opacity: 0; }
+  .slide-fwd-leave-to { transform: translateX(-12px); opacity: 0; }
+
+  .slide-back-enter-active, .slide-back-leave-active { transition: transform .24s ease, opacity .24s ease; }
+  .slide-back-enter-from { transform: translateX(-12px); opacity: 0; }
+  .slide-back-leave-to { transform: translateX(12px); opacity: 0; }
 }

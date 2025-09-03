@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useFormStore, PLAN_PRICES, ADDON_PRICES } from '../../store/form'
+import AddressDetails from '../AddressDetails.vue'
+import AddressSummary from './AddressSummary.vue'
 
 const form = useFormStore()
 const billing = computed(() => form.plan?.billing ?? 'monthly')
@@ -39,6 +41,12 @@ const selectedAddons = computed(() => form.addons.filter(a => a.selected))
       <span class="text-sm text-neutral-400">Total (per {{ billing==='monthly'?'month':'year' }})</span>
       <span class="text-2xl font-extrabold text-accent">+${{ form.totalPrice }}/{{ billing==='monthly'?'mo':'yr' }}</span>
     </div>
+
+    <div class="pt-4 border-t">
+      <AddressDetails title="Address Details" />
+    </div>
+
+    <AddressSummary />
   </div>
 </template>
 

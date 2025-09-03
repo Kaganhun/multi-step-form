@@ -18,12 +18,29 @@ export interface Addon {
   selected: boolean
 }
 
+export interface Address {
+  country: string
+  province?: string
+  district?: string
+  city?: string
+  postalCode: string
+  line1: string
+  line2?: string
+  type: 'home' | 'work' | 'other'
+}
+
 export interface FormState {
   step: Step
   personal: PersonalInfo
   plan: Plan | null
   addons: Addon[]
   view?: 'landing' | 'form'
+  address: {
+    billing: Address
+    shipping: Address
+    sameAsBilling: boolean
+  }
+  transitionDirection: 'forward' | 'backward'
 }
 
 export const PLAN_PRICES = {
@@ -49,6 +66,12 @@ export const useFormStore = defineStore('form', {
       { id: 'profile', selected: false },
     ],
     view: 'landing',
+    address: {
+      billing: { country: 'Türkiye', province: '', district: '', city: '', postalCode: '', line1: '', line2: '', type: 'home' },
+      shipping: { country: 'Türkiye', province: '', district: '', city: '', postalCode: '', line1: '', line2: '', type: 'home' },
+      sameAsBilling: true,
+    },
+    transitionDirection: 'forward',
   }),
   getters: {
     currentStepIndex: (state) => steps.indexOf(state.step),
@@ -65,15 +88,28 @@ export const useFormStore = defineStore('form', {
     },
   },
   actions: {
+    setAddress(part: 'billing' | 'shipping', payload: Partial<Address>): void {
+      this.address[part] = { ...this.address[part], ...payload }
+      if (part === 'billing' && this.address.sameAsBilling) {
+        this.address.shipping = { ...this.address.billing }
+      }
+    },
+    setSameAsBilling(value: boolean): void {
+      this.address.sameAsBilling = value
+      if (value) this.address.shipping = { ...this.address.billing }
+    },
     goNext(): void {
+      this.transitionDirection = 'forward'
       const nextIndex = Math.min(this.currentStepIndex + 1, steps.length - 1)
       this.step = steps[nextIndex]
     },
     goBack(): void {
+      this.transitionDirection = 'backward'
       const prevIndex = Math.max(this.currentStepIndex - 1, 0)
       this.step = steps[prevIndex]
     },
     goTo(step: Step): void {
+      this.transitionDirection = steps.indexOf(step) >= this.currentStepIndex ? 'forward' : 'backward'
       this.step = step
     },
     setPersonal(payload: PersonalInfo): void {

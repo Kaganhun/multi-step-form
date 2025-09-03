@@ -1,4 +1,4 @@
-import type { PersonalInfo, Plan } from '../store/form'
+import type { PersonalInfo, Plan, Address } from '../store/form'
 
 function isValidEmail(email: string): boolean {
   // Robust but pragmatic email check
@@ -35,6 +35,17 @@ export function validatePersonal(info: PersonalInfo): Record<keyof PersonalInfo,
 export function validatePlan(plan: Plan | null): string {
   if (!plan) return 'Please select a plan'
   return ''
+}
+
+export function validateAddress(addr: Address): Record<string, string> {
+  const errors: Record<string, string> = {}
+  if (!addr.line1?.trim()) errors.line1 = 'Address line 1 is required'
+  if (!addr.city?.trim()) errors.city = 'City is required'
+  if (!addr.postalCode?.trim()) errors.postalCode = 'Postal code is required'
+  if (!/^\d{5}$/.test(addr.postalCode ?? '')) errors.postalCode = 'Enter a valid 5-digit postal code'
+  if (!addr.province) errors.province = 'Province is required'
+  if (!addr.district) errors.district = 'District is required'
+  return errors
 }
 
 
