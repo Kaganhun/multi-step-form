@@ -12,7 +12,6 @@ const steps = [
 ] as const
 
 const activeIndex = computed(() => steps.findIndex((s) => s.key === form.step))
-const progress = computed(() => ((activeIndex.value + 1) / (steps.length - 1)) * 100)
 
 function goTo(step: Step, index: number) {
   if (index <= activeIndex.value) {

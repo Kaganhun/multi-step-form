@@ -3,7 +3,7 @@ import { onMounted, ref, watch } from 'vue'
 import { useFormStore } from '../store/form'
 import { useLocations } from '../composables/useLocations'
 
-const props = defineProps<{ title?: string }>()
+defineProps<{ title?: string }>()
 const form = useFormStore()
 const { trProvinces, trDistricts, fetchTrProvinces, fetchTrDistricts, validatePostalCode } = useLocations()
 
